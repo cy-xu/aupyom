@@ -1,7 +1,7 @@
+import numpy
+
 from queue import Empty, Queue
 from threading import Condition, Event, Thread
-
-import numpy
 
 
 class Sampler(object):
@@ -53,7 +53,8 @@ class Sampler(object):
             .. note:: If the sound is already playing, it will restart from the beginning.
 
         """
-        self.is_done.clear()  # hold is_done until the sound is played
+        # self.is_done.clear()  # hold is_done until the sound is played
+        # print("self.is_done", self.is_done.isSet())
         if self.sr != sound.sr:
             raise ValueError('You can only play sound with a samplerate of {} (here {}). Use the Sound.resample method for instance.', self.sr, sound.sr)
 
@@ -65,7 +66,7 @@ class Sampler(object):
             sound.playing = True
 
             self.chunk_available.notify()
-        self.is_done.wait()  # wait for the sound to be entirely played
+        # self.is_done.wait()  # wait for the sound to be entirely played
 
     def remove(self, sound):
         """ Remove a currently played sound. """
